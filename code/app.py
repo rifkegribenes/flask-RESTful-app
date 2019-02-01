@@ -8,12 +8,14 @@ items = []
 
 class Item(Resource):
 	def get(self, name):
-		for item in items:
-			if item['name'] == name:
+		item = next(filter(lambda x: x['name'] == name, items), None)
 				return item
-		return {'item': None }, 404
+		return {'item': None }, 200 if item else 404
 
 	def post(self, name):
+		if next(filter(lambda x: x['name'] == name, items), None) is not None:
+			return {'message': 'An item named {} already exists.'.format(name)}, 400
+
 		data = request.get_json()
 		item = {'name': name, 'price': data['price']}
 		items.append(item)

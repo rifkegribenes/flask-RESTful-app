@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
+app.secret_key = 'jsfei;mwjjt8y7gwe0jc8y*&)JIkjfbjdh'
 api = Api(app)
 
 items = []
